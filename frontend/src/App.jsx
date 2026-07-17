@@ -12,6 +12,8 @@ import MyFeedbacks from "./pages/MyFeedbacks";
 import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
 import ManageUsers from "./pages/ManageUsers";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path='/forgot-password' element={<ForgotPassword/>}/>
+            <Route path='/reset-password' element={<ResetPassword/>}/>
 
             <Route
               path="/submit-feedback"

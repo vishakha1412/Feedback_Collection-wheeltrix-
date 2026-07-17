@@ -75,146 +75,159 @@ const Profile = () => {
       setPasswordMsg("Password changed successfully 🔑");
       setPasswordData({ currentPassword: "", newPassword: "" });
     } catch (err) {
-      setPasswordError(
-        err.response?.data?.message || "Could not change password"
-      );
+      setPasswordError(err.response?.data?.message || "Could not change password");
     } finally {
       setPasswordLoading(false);
     }
   };
 
   return (
-    
-    <PageWrapper className="max-w-2xl mx-auto flex flex-col gap-8 mt-8 px-4 ">
-     
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="card bg-white shadow-lg rounded-xl p-6"
-      >
-        <h3 className="text-2xl font-bold mb-2 text-gray-800">Profile Details</h3>
-        <p className="text-sm text-gray-500 mb-4">
-          College:{" "}
-          <strong className="text-gray-700">{userInfo?.college?.name}</strong>{" "}
-          <span className="italic text-gray-400">(cannot be changed here)</span>
-        </p>
-
-        <Message type="success">{profileMsg}</Message>
-        <Message type="error">{profileError}</Message>
-
-        <form onSubmit={handleProfileSubmit} className="flex flex-col gap-5">
-          <div>
-            <label className="block text-sm font-semibold mb-1 text-gray-700">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 transition"
-              value={profileData.name}
-              onChange={handleProfileChange}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold mb-1 text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 transition"
-              value={profileData.email}
-              onChange={handleProfileChange}
-              required
-            />
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
-            type="submit"
-            disabled={profileLoading}
-            className="btn-primary w-full py-2 rounded-lg bg-gray-800 text-white font-semibold shadow-md hover:bg-indigo-700 transition"
-          >
-            {profileLoading ? "Saving..." : "Save Changes"}
-          </motion.button>
-        </form>
-      </motion.div>
-
-    
-      <div className="flex justify-center">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowPasswordForm(!showPasswordForm)}
-          className="px-6 py-2 rounded-lg font-semibold shadow-md bg-gray-800 text-white hover:bg-indigo-700 transition"
+    <PageWrapper className="min-h-screen flex flex-col md:flex-row items-start justify-center gap-10 px-6 py-10">
+      {/* Left: Profile and Password Forms */}
+      <div className="w-full md:w-1/2 flex flex-col gap-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="card bg-white shadow-lg rounded-xl p-6"
         >
-          {showPasswordForm ? "Hide Password Form" : "Change Password"}
-        </motion.button>
+          <h3 className="text-2xl font-bold mb-2 text-gray-800">Profile Details</h3>
+          <p className="text-sm text-gray-500 mb-4">
+            College:{" "}
+            <strong className="text-gray-700">{userInfo?.college?.name}</strong>{" "}
+            <span className="italic text-gray-400">(cannot be changed here)</span>
+          </p>
+
+          <Message type="success">{profileMsg}</Message>
+          <Message type="error">{profileError}</Message>
+
+          <form onSubmit={handleProfileSubmit} className="flex flex-col gap-5">
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-teal-500 transition"
+                value={profileData.name}
+                onChange={handleProfileChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-teal-500 transition"
+                value={profileData.email}
+                onChange={handleProfileChange}
+                required
+              />
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              disabled={profileLoading}
+              className="btn-primary w-full py-2 rounded-lg bg-teal-600 text-white font-semibold shadow-md hover:bg-teal-700 transition"
+            >
+              {profileLoading ? "Saving..." : "Save Changes"}
+            </motion.button>
+          </form>
+        </motion.div>
+
+        <div className="flex justify-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowPasswordForm(!showPasswordForm)}
+            className="px-6 py-2 rounded-lg font-semibold  bg-teal-600 text-white hover:bg-teal-700 transition w-full shadow-2xl"
+          >
+            {showPasswordForm ? "Hide Password Form" : "Change Password"}
+          </motion.button>
+        </div>
+
+        <AnimatePresence>
+          {showPasswordForm && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="card bg-white shadow-lg rounded-xl p-6 mb-5"
+            >
+              <h3 className="text-2xl  font-bold mb-4 text-gray-800">
+                Change Password
+              </h3>
+
+              <Message type="success">{passwordMsg}</Message>
+              <Message type="error">{passwordError}</Message>
+
+              <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-5">
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Current Password
+                  </label>
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-teal-500 transition"
+                    value={passwordData.currentPassword}
+                    onChange={handlePasswordChange}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    New Password
+                  </label>
+                  <input
+                    type="password"
+                    name="newPassword"
+                    className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-teal-500 transition"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    minLength="6"
+                    required
+                  />
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  type="submit"
+                  disabled={passwordLoading}
+                  className="btn-primary w-full py-2 rounded-lg bg-teal-600 text-white font-semibold shadow-md hover:bg-teal-700 transition"
+                >
+                  {passwordLoading ? "Updating..." : "Update Password"}
+                </motion.button>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-    
-      <AnimatePresence>
-        {showPasswordForm && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="card bg-white shadow-lg rounded-xl p-6  mb-5"
-          >
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
-              Change Password
-            </h3>
-
-            <Message type="success">{passwordMsg}</Message>
-            <Message type="error">{passwordError}</Message>
-
-            <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-5">
-              <div>
-                <label className="block text-sm font-semibold mb-1 text-gray-700">
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  name="currentPassword"
-                  className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 transition"
-                  value={passwordData.currentPassword}
-                  onChange={handlePasswordChange}
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-1 text-gray-700">
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  className="input-field w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 transition"
-                  value={passwordData.newPassword}
-                  onChange={handlePasswordChange}
-                  minLength="6"
-                  required
-                />
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                disabled={passwordLoading}
-                className="btn-primary w-full py-2 rounded-lg bg-gray-800 text-white font-semibold shadow-md hover:bg-indigo-700 transition"
-              >
-                {passwordLoading ? "Updating..." : "Update Password"}
-              </motion.button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
+ 
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        className="hidden md:flex md:w-1/2 justify-center items-center"
+      >
+        <motion.img
+          src="/profile.png" 
+          alt="Profile Illustration"
+          className="w-98 h-auto"
+          animate={{ y: [0, -15, 0], rotate: [0, 2, -2, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
     </PageWrapper>
-     
   );
 };
 
 export default Profile;
+``

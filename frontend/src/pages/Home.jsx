@@ -48,7 +48,7 @@ const Home = () => {
             <motion.button
               whileHover={{ scale: 1.08, boxShadow: "0px 8px 20px rgba(0,0,0,0.15)" }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 md:px-8 md:py-4 rounded-lg bg-gradient-to-r from-green-300   to-blue-300   font-semibold text-lg shadow-md transition-all duration-300"
+              className="px-6 py-3 md:px-8 md:py-4 rounded-lg bg-gradient-to-r from-teal-400 via-teal-100 to-teal-400  font-semibold text-lg shadow-md transition-all duration-300"
             >
               {userInfo ? "Submit Feedback" : "Get Started"}
             </motion.button>
