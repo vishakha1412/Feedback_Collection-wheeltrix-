@@ -55,7 +55,7 @@ export default function ResetPassword() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
           />
 
           <motion.input
@@ -65,7 +65,7 @@ export default function ResetPassword() {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
           />
 
           <motion.input
@@ -75,7 +75,7 @@ export default function ResetPassword() {
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
           />
 
           <motion.button
@@ -83,7 +83,7 @@ export default function ResetPassword() {
             whileTap={{ scale: 0.95 }}
             type="submit"
             disabled={loading}
-            className="w-full bg-emerald-600 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-teal-600 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-teal-700 transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
